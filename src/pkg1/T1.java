@@ -30,13 +30,14 @@ public class T1 {
 	public static Map<String, String> dynamicHashMap = null;
     public static String PolNum = null;
 	public static String Pol1 = null;
-	public static String coverStartDate = "01/04/2020";
+	public static String coverStartDate = "25/04/2020";
 	public static String coverStartTime = "10:30:06";
 	public static Properties prop = null;
 	public static FileInputStream fis;
-	public static String env = "sa";
+	public static String env = "yellow";
 
 	{
+		
 		prop = new Properties();
 
 		try {
@@ -121,6 +122,13 @@ public class T1 {
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
+	}else if(env.equals("vm31"))
+	{
+		driver.get(prop.getProperty("vm31URL"));
+		driver.manage().window().maximize();
+		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
 	}else 
 	{
 		driver.get(prop.getProperty("Dev2URL"));
@@ -131,7 +139,7 @@ public class T1 {
 	}
 		driver.findElement(By.id("password")).sendKeys("Password@2018");
 		driver.findElement(By.cssSelector("#loginModal > div > div > div.card-footer > button")).click();
-		getElement(prop.getProperty("fldClientCode")).sendKeys("sharmaqa");
+		getElement(prop.getProperty("fldClientCode")).sendKeys("dubeys");
 		driver.findElement(By.xpath(prop.getProperty("btnSearch_X"))).click();
 		driver.findElement(By.xpath(prop.getProperty("btnSelect_X"))).click();
 		UtilityMethods.selectByVisibleText(driver, "#ctl00_cntMainBody_ctrlNewQuoteImproved_ddlProductlst",
@@ -141,12 +149,13 @@ public class T1 {
 		Actions action = new Actions(driver);
 		action.sendKeys(Keys.PAGE_UP).build().perform();
 		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_POLICYHEADER__ANALYSISCODE", 0);
-		UtilityMethods.selectByIndex(driver, "select#ctl00_cntMainBody_POLICYHEADER__BRANCH", 1);
+	//	UtilityMethods.selectByIndex(driver, "select#ctl00_cntMainBody_POLICYHEADER__BRANCH", 1);
 		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_POLICYHEADER__ANALYSISCODE", 2);
-		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_ddlThirdParty", 0);
-
+		if(!env.equals("sa")) {
+		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_ddlThirdParty", 5);
+		}
 		
-		/*  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartDate"))).
+		 /* driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartDate"))).
 		  clear();
 		  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartDate"))).
 		  sendKeys(coverStartDate);
@@ -154,8 +163,8 @@ public class T1 {
 		  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartTime"))).
 		  clear();
 		  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartTime"))).
-		  sendKeys(coverStartTime);
-		 */
+		  sendKeys(coverStartTime);*/
+		 
 		
 		/*  WebElement frequency = driver.findElement(By.cssSelector(
 		  "#ctl00_cntMainBody_POLICYHEADER__FREQUENCY")); frequency.click(); Select
@@ -164,6 +173,9 @@ public class T1 {
 		 
 		action.sendKeys(Keys.PAGE_UP).build().perform();*/
 		screenShot(driver, "PolicyHeader");
+		action.sendKeys(Keys.PAGE_DOWN).build().perform();
+		screenShot(driver, "PolicyHeaderDown");
+		action.sendKeys(Keys.PAGE_UP).build().perform();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath(prop.getProperty("tabCompliance_X"))).click();
 		// Compliance screen
@@ -314,7 +326,7 @@ public class T1 {
 		  "QuoteDisplay-Add-On included_2");
 		  action.sendKeys(Keys.PAGE_UP).build().perform(); Thread.sleep(2000);
 		 
-		//getElement(prop.getProperty("btnSave")).click();
+		getElement(prop.getProperty("btnSave")).click();
 		
 		
 		
@@ -331,7 +343,7 @@ public class T1 {
 		screenShot(driver, "SOC");
 		action.sendKeys(Keys.PAGE_DOWN).build().perform();
 		screenShot(driver, "SOC_1_");
-	//	getElement(prop.getProperty("btnConfirm")).click();
+		getElement(prop.getProperty("btnConfirm")).click();
 		Thread.sleep(7000);
 		/*
 		 * Alert alert1 = driver.switchTo().alert(); alert1.accept();

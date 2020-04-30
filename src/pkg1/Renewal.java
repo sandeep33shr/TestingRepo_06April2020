@@ -27,7 +27,7 @@ public class Renewal {
 	public static Map<String, String> dynamicHashMap = null;
 	public static Properties prop = null;
 	public static FileInputStream fis;
-	public static String polnum= "ERG_GH_023622";
+	public static String polnum= "ERG_GH_024495";
 	public static String env = "blue";
 	
 	
@@ -84,28 +84,44 @@ public class Renewal {
 		String path = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", path + "//ChromeDriver//chromedriver.exe");
 		driver = new ChromeDriver();
+		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		/*System.setProperty("webdriver.ie.driver", path + "//IEdriver//IEDriverServer.exe");
 		driver = new InternetExplorerDriver();*/
 		if(env.equals("yellow")){
-		driver.get(prop.getProperty("SITyellowURL"));
-		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.findElement(By.id("username")).sendKeys("admin@yellowinsurance.com");
-	}else if(env.equals("red")){
-		driver.get(prop.getProperty("SITredUrl"));
-		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.findElement(By.id("username")).sendKeys("admin@redinsurance.com");
-	}else
-	{
-		driver.get(prop.getProperty("Dev2URL"));
-		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
-	}
+			driver.get(prop.getProperty("SITyellowURL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@yellowinsurance.com");
+		}else if(env.equals("red")){
+			driver.get(prop.getProperty("SITredUrl"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@redinsurance.com");
+		}else if(env.equals("blue"))
+		{
+			driver.get(prop.getProperty("Dev2URL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
+		}else if(env.equals("vm31"))
+		{
+			driver.get(prop.getProperty("vm31URL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
+		}else 
+		{
+			driver.get(prop.getProperty("Dev2URL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("subagent@blueinsurance.com");
+		}
 		driver.findElement(By.id("password")).sendKeys("Password@2018");
 		driver.findElement(By.cssSelector("#loginModal > div > div > div.card-footer > button")).click();
 		
@@ -115,7 +131,8 @@ public class Renewal {
 	    getElement(prop.getProperty("btnFindSelection")).click();
 	    Thread.sleep(2000);
 	    getElement(prop.getProperty("lnkSelect")).click();
-	    Thread.sleep(10000);
+	    Thread.sleep(20000);
+	    screenShot(driver,"RenewalSelection");
 	    waitForElement("#ctl00_RibbonMenu_rptCategory_ctl02_RptCategorySpanText");
 	    getElement(prop.getProperty("lnkPolicy")).click();
 	    getElement(prop.getProperty("lnkRenewalManager")).click();

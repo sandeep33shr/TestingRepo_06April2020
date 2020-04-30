@@ -37,18 +37,22 @@ public class MTA {
 	public static Map<String, String> dynamicHashMap = null;
 	public static String PolNum = null;
 	public static String Pol1 = null;
-	public static String coverStartDate = "12/03/2020";
+	public static String coverStartDate = "17/04/2020";
 	public static String coverStartTime = "10:30:06";
-	public static String mTAcoverStartDate = "25/03/2020";
+	public static String mTAcoverStartDate = "17/04/2020";
 	public static String mTAcoverStartTime = "18:30:06";
 	public static Properties prop = null;
 	public static FileInputStream fis;
-	public static String polnum= "ERG_GH_023836";
+	public static String polnum= "ERG_GH_027361";
 	public static String status="Current";
-	public static String fldTurnOver="200000";
+	/*public static String fldTurnOver="225000";
 	public static String fldBedRooms="2";
-	public static String fldINCCIT="100000";
-	public static String username="admin@blueinsurance.com";
+	public static String fldINCCIT="125000";*/
+	public static String fldTurnOver="400000";
+	public static String fldBedRooms="6";
+	public static String fldINCCIT="200000";
+	public static String env = "red";
+	
 	
 	
 	{
@@ -116,15 +120,44 @@ public class MTA {
         String path = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", path + "//ChromeDriver//chromedriver.exe");
 		driver = new ChromeDriver();
-     /*   System.setProperty("webdriver.ie.driver", path + "//IEdriver//IEDriverServer.exe");
-		driver = new InternetExplorerDriver();*/
-		driver.get(prop.getProperty("Dev2URL"));
-		
-		
-		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.findElement(By.id("username")).sendKeys(username);
+     /*   System.setProperty("webdriver.ie.driver", path + "//IEdriver//IEDriverServer.exe");
+		driver = new InternetExplorerDriver();*/
+		if(env.equals("yellow")){
+			driver.get(prop.getProperty("SITyellowURL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@yellowinsurance.com");
+		}else if(env.equals("red")){
+			driver.get(prop.getProperty("SITredUrl"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@redinsurance.com");
+		}else if(env.equals("blue"))
+		{
+			driver.get(prop.getProperty("Dev2URL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
+		}else if(env.equals("vm31"))
+		{
+			driver.get(prop.getProperty("vm31URL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
+		}else 
+		{
+			driver.get(prop.getProperty("Dev2URL"));
+			driver.manage().window().maximize();
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.findElement(By.id("username")).sendKeys("subagent@blueinsurance.com");
+		}
 		driver.findElement(By.id("password")).sendKeys("Password@2018");
 		driver.findElement(By.cssSelector("#loginModal > div > div > div.card-footer > button")).click();
   		driver.findElement(By.cssSelector("#ctl00_cntMainBody_txtPolicyNumber")).sendKeys(polnum);
@@ -139,7 +172,8 @@ public class MTA {
      	Thread.sleep(1000);
        //	ProjectMethods.clickMTAVersion(driver, colStatus, pageLinks, status);
       	ProjectMethods.clickElementBasedOnText(driver, colStatus, status);
-		Thread.sleep(10000);
+      	screenShot(driver,"mtaPolicyList");
+		Thread.sleep(15000);
 		try {
 
 			driver.findElement(By.xpath("//*[@id=\"ctl00_cntMainBody_ClientQuotesPolicies_btnChange\"]")).click();
@@ -155,8 +189,13 @@ public class MTA {
 		  clear();
 		  driver.findElement(By.cssSelector("#ctl00_cntMainBody_txtEffectiveDate")).
 		  sendKeys(mTAcoverStartDate);*/
-		 
+		  
+		  driver.findElement(By.cssSelector("#ctl00_cntMainBody_txtEffectiveTime")).
+		  clear();
+		  driver.findElement(By.cssSelector("#ctl00_cntMainBody_txtEffectiveTime")).
+		  sendKeys(mTAcoverStartTime);
 		
+		screenShot(driver,"MTAReason");
 		driver.findElement(By.cssSelector("a#ctl00_cntMainBody_btnSubmit")).click();
 
 		// DATA CAPTURE SCREEN
@@ -168,7 +207,7 @@ public class MTA {
 		// 1st tab
 		getElement(prop.getProperty("btnNext1stScreen")).click();
 		// 2nd tab
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		getElement(prop.getProperty("radiobtnBuilding")).click();
 		getElement(prop.getProperty("radiobtnContent")).click();
 		getElement(prop.getProperty("btnNext2ndScreen")).click();
@@ -199,12 +238,12 @@ public class MTA {
 		getElement(prop.getProperty("btnNext8thScreen")).click();
 		Thread.sleep(2000);
 		// 9th Tab
-		getElement(prop.getProperty("fldTotalWine")).clear();
+	/*	getElement(prop.getProperty("fldTotalWine")).clear();
 		getElement(prop.getProperty("fldTotalWine")).sendKeys("2000");
 		getElement(prop.getProperty("fldTotalComputer")).clear();
 		getElement(prop.getProperty("fldTotalComputer")).sendKeys("2000");
 		getElement(prop.getProperty("fldFrozenFood")).clear();
-		getElement(prop.getProperty("fldFrozenFood")).sendKeys("5000");
+		getElement(prop.getProperty("fldFrozenFood")).sendKeys("5000");*/
 		getElement(prop.getProperty("btnNext9thScreen")).click();
 		Thread.sleep(2000);
 		// 10th tab
@@ -242,6 +281,7 @@ public class MTA {
 		// Quote Manager Page**************
 
 		Thread.sleep(25000);
+		screenShot(driver,"mtaQR");
 		/*Actions action = new Actions(driver);
 		screenShot(driver, "QuoteDisplay");
 		action.sendKeys(Keys.PAGE_DOWN).build().perform();
