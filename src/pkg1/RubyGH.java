@@ -45,8 +45,8 @@ public class RubyGH {
 	public static int index=6;
 	public static String postcode = "BA27PB";
 	//public static String product = "Guest Houses";
-//	public static String product="Holiday Homes Group";
-	public static String product="Staff Accomodation";
+	public static String product="Holiday Homes Group";
+	//public static String product="Staff Accomodation";
 	{
 
 		prop = new Properties();
@@ -131,10 +131,10 @@ public class RubyGH {
 		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_ddlThirdParty", 1);
 
 		
-		  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartDate"))).
+		/*  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartDate"))).
 		  clear();
 		  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartDate"))).
-		  sendKeys(coverStartDate);
+		  sendKeys(coverStartDate);*/
 		  
 		/*  driver.findElement(By.cssSelector(prop.getProperty("fldCoverStartTime"))).
 		  clear();

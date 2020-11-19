@@ -21,7 +21,7 @@ public class HIUA_SIT {
 		String path = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", path + "//ChromeDriver//chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
-		driver.get("https://ssppureportal-devt.ssp-development.com/Pure.Portal/login.aspx");
+		driver.get("https://ssppureportal-devt.ssp-development.com/Pure.Portal/LoginPlatform.aspx");
 
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
@@ -29,21 +29,22 @@ public class HIUA_SIT {
 		driver.findElement(By.id("username")).sendKeys("admin@redinsurance.com");
 		driver.findElement(By.id("password")).sendKeys("Password@2018");
 		driver.findElement(By.cssSelector("#loginModal > div > div > div.card-footer > button")).click();
-		driver.findElement(By.id("ctl00_cntMainBody_txtClientCode")).sendKeys("ABSCOMP");
+		driver.findElement(By.id("ctl00_cntMainBody_txtClientCode")).sendKeys("sharmaqb");
 		driver.findElement(By.xpath("//a[@id='ctl00_cntMainBody_btnSearch']")).click();
 		driver.findElement(By.xpath("//a[@id='ctl00_cntMainBody_grdvSearchResults_ctl02_lnkDetails']")).click();
 		UtilityMethods.selectByVisibleText(driver, "#ctl00_cntMainBody_ctrlNewQuoteImproved_ddlProductlst", "HIUA Phase 1 GLU");
 		driver.findElement(By.xpath("//a[@id='ctl00_cntMainBody_ctrlNewQuoteImproved_btnNewQuote']")).click();
-		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_POLICYHEADER__ANALYSISCODE", 0);
+		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_POLICYHEADER__ANALYSISCODE", 2);
 		UtilityMethods.selectByIndex(driver, "select#ctl00_cntMainBody_POLICYHEADER__BRANCH", 0);
 		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_POLICYHEADER__DEPARTMENT", 2);
 		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_ddlPolicyHeaderSubTeam", 2);
 		driver.findElement(By.cssSelector("#ctl00_cntMainBody_btnHandler")).click();
 		driver.switchTo().frame("TB_iframeContent");
 		driver.findElement(By.id("ctl01_cntMainBody_btnSearch")).click();
-		driver.findElement(By.cssSelector("#ctl01_cntMainBody_grdvSearchResults_ctl04_btnSelect")).click();
+		driver.findElement(By.cssSelector("#ctl01_cntMainBody_grdvSearchResults_ctl02_btnSelect")).click();
 		driver.switchTo().defaultContent(); Thread.sleep(2000);
-		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_ddlThirdParty", 3);
+		UtilityMethods.selectByIndex(driver, "#ctl00_cntMainBody_ddlThirdParty", 0);
+		
 	
 	/*	driver.findElement(By.cssSelector("#ctl00_cntMainBody_POLICYHEADER__COVERSTARTDATE")).clear();
 		driver.findElement(By.cssSelector("#ctl00_cntMainBody_POLICYHEADER__COVERSTARTDATE"))
@@ -66,8 +67,8 @@ public class HIUA_SIT {
 		
 		//Renewal tab
 		driver.findElement(By.xpath("//*[@id=\"MainDetail-control\"]/div/ul/li[3]/a")).click();
-		UtilityMethods.selectByVisibleText(driver,"#ctl00_cntMainBody_POLICYHEADER__RENEWALMETHOD", "Renewal Method3");
-		UtilityMethods.selectByVisibleText(driver,"#ctl00_cntMainBody_POLICYHEADER__STOPREASON", "Bank details fraud");
+	//	UtilityMethods.selectByVisibleText(driver,"#ctl00_cntMainBody_POLICYHEADER__RENEWALMETHOD", "Renewal Method3");
+		UtilityMethods.selectByVisibleText(driver,"#ctl00_cntMainBody_POLICYHEADER__STOPREASON", "Bad Claims Experience");
 		driver.findElement(By.id("ctl00_cntMainBody_btnNext")).click();
 
 		// DATA CAPTURE SCREEN
@@ -76,9 +77,9 @@ public class HIUA_SIT {
 		driver.switchTo().frame("QMIframe");
 
 		// 1st tab
-		driver.findElement(By.cssSelector(
+		/*driver.findElement(By.cssSelector(
 				"#C1__Screen_SSd_90_0_T__DATA_SET_rISK_OBJECTS_Component_HIUAGH_POLICY_BINDER_Component_GENERAL_DETAILS_INSURED"))
-				.sendKeys("Sandeep");
+				.sendKeys("Sandeep");*/
 		driver.findElement(By.cssSelector(
 				"#C1__Screen_SSd_90_0_T__DATA_SET_rISK_OBJECTS_Component_HIUAGH_POLICY_BINDER_Component_GENERAL_DETAILS_TRADING_NAME"))
 				.sendKeys("Sandeep");

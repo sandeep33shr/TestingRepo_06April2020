@@ -27,8 +27,8 @@ public class Renewal {
 	public static Map<String, String> dynamicHashMap = null;
 	public static Properties prop = null;
 	public static FileInputStream fis;
-	public static String polnum= "ERG_GH_024495";
-	public static String env = "blue";
+	public static String polnum= "ERG/GH/027546";
+	public static String env = "vm31";
 	
 	
 	{

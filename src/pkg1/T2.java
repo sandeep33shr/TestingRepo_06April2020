@@ -103,13 +103,23 @@ public class T2 {
 		driver = new ChromeDriver();
 		/*System.setProperty("webdriver.ie.driver", path + "//IEdriver//IEDriverServer.exe");
 		driver = new InternetExplorerDriver();*/
-		driver.get(prop.getProperty("SITyellowURL"));
+		driver.get(prop.getProperty("Dev2URL"));
 		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.findElement(By.id("username")).sendKeys("admin@yellowinsurance.com");
+		driver.findElement(By.id("username")).sendKeys("admin@blueinsurance.com");
 		driver.findElement(By.id("password")).sendKeys("Password@2018");
 		driver.findElement(By.cssSelector("#loginModal > div > div > div.card-footer > button")).click();
+		
+		getElement(prop.getProperty("lnkFinance")).click();
+		getElement(prop.getProperty("lnkBanking")).click();
+		
+		UtilityMethods.selectByVisibleText(driver, "#ctl00_cntMainBody_ddlBranch", "Barmingham");
+		
+		
+		
+		
+		
 		getElement(prop.getProperty("fldClientCode")).sendKeys("SHARMAQA");
 		driver.findElement(By.xpath(prop.getProperty("btnSearch_X"))).click();
 		driver.findElement(By.xpath(prop.getProperty("btnSelect_X"))).click();
